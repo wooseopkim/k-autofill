@@ -1,0 +1,20 @@
+{
+  "name": "K-Autofill",
+  "version": "0.0.1",
+  "description": "K-fills K-forms K-automatically",
+  "permissions": [
+    "storage",
+    "webNavigation"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*.ok-name.co.kr/*",
+        "https://*.ok-name.co.kr/*"
+      ],
+      "run_at": "document_end",
+      "js": ["app.js"]
+    }
+  ],
+  "manifest_version": 2
+}
