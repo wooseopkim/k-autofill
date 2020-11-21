@@ -88,10 +88,23 @@ if (kFormIsDetected) {
     async () => {
       const value = await kData.kGender
       const kGenderCode = kConvertGenderToCode(value)
-      document.querySelector('input#s' + K_CENSORED + 'e' + K_CENSORED + 'x_cd').value = kGenderCode.toString()
+      const inputSelector = 'input#s' + K_CENSORED + 'e' + K_CENSORED + 'x_cd'
+      document.querySelector(inputSelector).value = kGenderCode.toString()
       kDebug('filled in gender', value)
-      document.querySelectorAll('a[href="#s' + K_CENSORED + 'e' + K_CENSORED + 'xCd"]')[kGetGenderCodeOrder(kGenderCode)].click()
+      const anchorSelector = 'a[href="#s' + K_CENSORED + 'e' + K_CENSORED + 'xCd"]'
+      const index = kConvertGenderCodeToIndex(kGenderCode)
+      document.querySelectorAll(anchorSelector)[index].click()
       kDebug('executed visual fix for gender')
+    },
+    async () => {
+      const anchorSelector = 'a[href="#s' + K_CENSORED + 'e' + K_CENSORED + 'xCd"]'
+      document.querySelectorAll(anchorSelector).forEach((x, i) => {
+        x.addEventListener('mousedown', (_) => {
+          const key = K_GENDER_KEY
+          const value = kConvertIndexToGender(i)
+          kSetStorage(key, value).then(kDebug)
+        })
+      })
     },
     async () => {
       document.querySelector('input#certi01').click()
@@ -154,7 +167,11 @@ function kConvertGenderToCode(x) {
   return Math.abs(73 - x.codePointAt(0)) - 3
 }
 
-function kGetGenderCodeOrder(x) {
+function kConvertIndexToGender(x) {
+  return String.fromCodePoint(70 + Number(!x) * 7)
+}
+
+function kConvertGenderCodeToIndex(x) {
   return Number(!x)
 }
 
