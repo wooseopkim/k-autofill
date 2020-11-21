@@ -25,9 +25,27 @@ if (kFormIsDetected) {
       kDebug('filled in carrier')
     },
     async () => {
+      document.querySelectorAll('.telecomSelect a').forEach((x) => {
+        x.addEventListener('click', (_) => {
+          const key = K_CARRIER_KEY
+          const value = x.href.replace(/^.+#/, '')
+          kSetStorage(key, value).then(kDebug)
+        })
+      })
+    },
+    async () => {
       document.querySelector(`input#radio0${kConvertMvnoToCode(await kData.kMvno)}`).click()
       document.querySelector('a[href="#jsSubmit"]').click()
       kDebug('filled in mvno carrier')
+    },
+    async () => {
+      document.querySelectorAll('.mvnoSelectBox input[type="radio"]').forEach((x) => {
+        x.addEventListener('change', (e) => {
+          const key = K_MVNO_KEY
+          const value = kConvertOptionValueToMvno(e.target.value)
+          kSetStorage(key, value).then(kDebug)
+        })
+      })
     },
     async () => {
       document.querySelector('input#nm').value = await kData.kName
