@@ -55,14 +55,35 @@ if (kFormIsDetected) {
       kDebug('filled in name', value)
     },
     async () => {
+      document.querySelector('input#nm').addEventListener('change', (e) => {
+        const key = K_NAME_KEY
+        const value = e.target.value
+        kSetStorage(key, value).then(kDebug)
+      })
+    },
+    async () => {
       const value = await kData.kCellNumber
       document.querySelector('input#mbphn_no').value = value || ''
       kDebug('filled in cell number', value)
     },
     async () => {
+      document.querySelector('input#mbphn_no').addEventListener('change', (e) => {
+        const key = K_CELL_NUMBER_KEY
+        const value = e.target.value
+        kSetStorage(key, value).then(kDebug)
+      })
+    },
+    async () => {
       const value = await kData.kBirthday
       document.querySelector('input#brdt').value = value || ''
       kDebug('filled in birthday', value)
+    },
+    async () => {
+      document.querySelector('input#brdt').addEventListener('change', (e) => {
+        const key = K_BIRTHDAY_KEY
+        const value = e.target.value
+        kSetStorage(key, value).then(kDebug)
+      })
     },
     async () => {
       const value = await kData.kGender
