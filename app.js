@@ -21,8 +21,9 @@ const kData = {
 if (kFormIsDetected) {
   ;[
     async () => {
-      document.querySelector(`a[href="#${await kData.kCarrier}"]`).click()
-      kDebug('filled in carrier')
+      const value = await kData.kCarrier
+      document.querySelector(`a[href="#${value}"]`).click()
+      kDebug('filled in carrier', value)
     },
     async () => {
       document.querySelectorAll('.telecomSelect a').forEach((x) => {
@@ -34,9 +35,10 @@ if (kFormIsDetected) {
       })
     },
     async () => {
-      document.querySelector(`input#radio0${kConvertMvnoToCode(await kData.kMvno)}`).click()
+      const value = await kData.kMvno
+      document.querySelector(`input#radio0${kConvertMvnoToCode(value)}`).click()
       document.querySelector('a[href="#jsSubmit"]').click()
-      kDebug('filled in mvno carrier')
+      kDebug('filled in mvno carrier', value)
     },
     async () => {
       document.querySelectorAll('.mvnoSelectBox input[type="radio"]').forEach((x) => {
@@ -48,21 +50,25 @@ if (kFormIsDetected) {
       })
     },
     async () => {
-      document.querySelector('input#nm').value = await kData.kName
-      kDebug('filled in name')
+      const value = await kData.kName
+      document.querySelector('input#nm').value = value || ''
+      kDebug('filled in name', value)
     },
     async () => {
-      document.querySelector('input#mbphn_no').value = await kData.kCellNumber
-      kDebug('filled in cell number')
+      const value = await kData.kCellNumber
+      document.querySelector('input#mbphn_no').value = value || ''
+      kDebug('filled in cell number', value)
     },
     async () => {
-      document.querySelector('input#brdt').value = await kData.kBirthday
-      kDebug('filled in birthday')
+      const value = await kData.kBirthday
+      document.querySelector('input#brdt').value = value || ''
+      kDebug('filled in birthday', value)
     },
     async () => {
-      const kGenderCode = kConvertGenderToCode(await kData.kGender)
+      const value = await kData.kGender
+      const kGenderCode = kConvertGenderToCode(value)
       document.querySelector('input#s' + K_CENSORED + 'e' + K_CENSORED + 'x_cd').value = kGenderCode.toString()
-      kDebug('filled in gender')
+      kDebug('filled in gender', value)
       document.querySelectorAll('a[href="#s' + K_CENSORED + 'e' + K_CENSORED + 'xCd"]')[kGetGenderCodeOrder(kGenderCode)].click()
       kDebug('executed visual fix for gender')
     },
