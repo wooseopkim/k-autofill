@@ -20,62 +20,66 @@ const kData = {
 
 if (kFormIsDetected) {
   ;[
-    () => {
-      document.querySelector(`a[href="#${kData.kCarrier}"]`).click()
+    async () => {
+      document.querySelector(`a[href="#${await kData.kCarrier}"]`).click()
       kDebug('filled in carrier')
     },
-    () => {
-      document.querySelector(`input#radio0${kConvertMvnoToCode(kData.kMvno)}`).click()
+    async () => {
+      document.querySelector(`input#radio0${kConvertMvnoToCode(await kData.kMvno)}`).click()
       document.querySelector('a[href="#jsSubmit"]').click()
       kDebug('filled in mvno carrier')
     },
-    () => {
-      document.querySelector('input#nm').value = kData.kName
+    async () => {
+      document.querySelector('input#nm').value = await kData.kName
       kDebug('filled in name')
     },
-    () => {
-      document.querySelector('input#mbphn_no').value = kData.kCellNumber
+    async () => {
+      document.querySelector('input#mbphn_no').value = await kData.kCellNumber
       kDebug('filled in cell number')
     },
-    () => {
-      document.querySelector('input#brdt').value = kData.kBirthday
+    async () => {
+      document.querySelector('input#brdt').value = await kData.kBirthday
       kDebug('filled in birthday')
     },
-    () => {
-      const kGenderCode = kConvertGenderToCode(kData.kGender)
+    async () => {
+      const kGenderCode = kConvertGenderToCode(await kData.kGender)
       document.querySelector('input#s' + K_CENSORED + 'e' + K_CENSORED + 'x_cd').value = kGenderCode.toString()
       kDebug('filled in gender')
       document.querySelectorAll('a[href="#s' + K_CENSORED + 'e' + K_CENSORED + 'xCd"]')[kGetGenderCodeOrder(kGenderCode)].click()
       kDebug('executed visual fix for gender')
     },
-    () => {
+    async () => {
       document.querySelector('input#certi01').click()
       document.querySelector('input#certi02').click()
       document.querySelector('input#certi03').click()
       document.querySelector('input#certi04').click()
       kDebug('filled in agreements')
     },
-    () => {
+    async () => {
       document.querySelectorAll('.placeholderGuidetext').forEach((x) => {
         x.style.display = 'none'
       })
       kDebug('hid placeholders')
     },
-    () => {
+    async () => {
       setTimeout(() => {
-        const kInput = document.querySelector('input#captchaCode')
-        kInput.tabIndex = 1337
-        kInput.focus()
+        try {
+          const kInput = document.querySelector('input#captchaCode')
+          kInput.tabIndex = 1337
+          kInput.focus()
+        } catch (e) {
+          kDebug(e)
+        }
       }, 1000)
       kDebug('focused captcha')
     },
-    () => {
+    async () => {
       document.querySelector('input#priv').click()
       document.querySelector('a[href="#confirm"]').click()
       kDebug('filled in privacy agreement')
     },
   ].forEach((fill) => {
-    try { fill() } catch (e) { kDebug(e) }
+    fill().catch(kDebug)
   })
 }
 
