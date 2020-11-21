@@ -94,6 +94,17 @@ function kConvertMvnoToCode(x) {
   }
 }
 
+function kConvertOptionValueToMvno(x) {
+  switch (x) {
+    case '05':
+      return 'kt'
+    case '04':
+      return 'skt'
+    case '06':
+      return 'lgu'
+  }
+}
+
 function kConvertGenderToCode(x) {
   return Math.abs(73 - x.codePointAt(0)) - 3
 }
