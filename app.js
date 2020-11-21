@@ -97,3 +97,19 @@ function kDebug(message) {
   }
   console.log(message)
 }
+
+function kSetStorage(key, value) {
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ [key]: value }, () => {
+      resolve({ [key]: value })
+    })
+  })
+}
+
+function kGetStorage(key) {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get([key], (result) => {
+      resolve(result)
+    })
+  })
+}
