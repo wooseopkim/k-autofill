@@ -137,16 +137,17 @@ function kGetGenderCodeOrder(x) {
   return Number(!x)
 }
 
-function kDebug(message) {
+function kDebug(...messages) {
   if (!K_DEBUG) {
     return
   }
-  console.log(message)
+  console.log(...messages)
 }
 
 function kSetStorage(key, value) {
   return new Promise((resolve) => {
     chrome.storage.sync.set({ [key]: value }, () => {
+      kDebug('set', key, value)
       resolve({ [key]: value })
     })
   })
@@ -155,6 +156,7 @@ function kSetStorage(key, value) {
 function kGetStorage(key) {
   return new Promise((resolve) => {
     chrome.storage.sync.get(key, (result) => {
+      kDebug('get', key, result)
       resolve(result[key])
     })
   })
