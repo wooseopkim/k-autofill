@@ -1,14 +1,21 @@
 const K_DEBUG = false
 const K_CENSORED = ''
+const K_CARRIER_KEY = 'kCarrier'
+const K_MVNO_KEY = 'kMvno'
+const K_NAME_KEY = 'kName'
+const K_CELL_NUMBER_KEY = 'kCellNumber'
+const K_BIRTHDAY_KEY = 'kBirthday'
+const K_GENDER_KEY = 'KGender'
+
 const kFormIsDetected = !!document.querySelector('form[name="authForm"]')
 
 const kData = {
-  kCarrier: 'mvno',
-  kMvno: 'kt',
-  kName: '김우섭',
-  kCellNumber: K_CENSORED,
-  kBirthday: '19950106',
-  kGender: 'M',
+  kCarrier: kGetStorage(K_CARRIER_KEY),
+  kMvno: kGetStorage(K_MVNO_KEY),
+  kName: kGetStorage(K_NAME_KEY),
+  kCellNumber: kGetStorage(K_CELL_NUMBER_KEY),
+  kBirthday: kGetStorage(K_BIRTHDAY_KEY),
+  kGender: kGetStorage(K_GENDER_KEY),
 }
 
 if (kFormIsDetected) {
