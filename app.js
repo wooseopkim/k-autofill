@@ -6,6 +6,7 @@ const K_NAME_KEY = 'kName'
 const K_CELL_NUMBER_KEY = 'kCellNumber'
 const K_BIRTHDAY_KEY = 'kBirthday'
 const K_GENDER_KEY = 'KGender'
+const K_TIME_TO_WAIT_FOR_USER_CHANGES = 2000;
 
 const kFormIsDetected = !!document.querySelector('form[name="authForm"]')
 
@@ -22,8 +23,14 @@ if (kFormIsDetected) {
   ;[
     async () => {
       const value = await kData.kCarrier
-      document.querySelector(`a[href="#${value}"]`).click()
-      kDebug('filled in carrier', value)
+      setTimeout(() => {
+        try {
+          document.querySelector(`a[href="#${value}"]`).click()
+          kDebug('filled in carrier', value)
+        } catch (e) {
+          kDebug(e)
+        }
+      }, K_TIME_TO_WAIT_FOR_USER_CHANGES)
     },
     async () => {
       document.querySelectorAll('.telecomSelect a').forEach((x) => {
@@ -37,8 +44,14 @@ if (kFormIsDetected) {
     async () => {
       const value = await kData.kMvno
       document.querySelector(`input#radio0${kConvertMvnoToCode(value)}`).click()
-      document.querySelector('a[href="#jsSubmit"]').click()
-      kDebug('filled in mvno carrier', value)
+      setTimeout(() => {
+        try {
+          document.querySelector('a[href="#jsSubmit"]').click()
+          kDebug('filled in mvno carrier', value)
+        } catch (e) {
+          kDebug(e)
+        }
+      }, K_TIME_TO_WAIT_FOR_USER_CHANGES)
     },
     async () => {
       document.querySelectorAll('.mvnoSelectBox input[type="radio"]').forEach((x) => {
