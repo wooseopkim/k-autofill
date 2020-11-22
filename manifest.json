@@ -13,7 +13,7 @@
         "https://*.ok-name.co.kr/*"
       ],
       "run_at": "document_end",
-      "js": ["app.js"]
+      "js": ["kcb.js"]
     }
   ],
   "manifest_version": 2
